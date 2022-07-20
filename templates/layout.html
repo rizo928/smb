@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!---
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    -->
+    <script src="script.js"></script>
+    
+    <style>
+      
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    {% block head %}
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% macro insert_to_clipboard_button(txt="", dsp="button") -%}
+      <button type="button" class="btn btn-primary" onclick="to_clipboard('{{ txt }}')">{{ dsp }}</button>
+    {%- endmacro %}
+
+    {% macro insert_album_id(id="") -%}
+    album_id={{id}}
+    {%- endmacro %}
+  
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">{{ux_g["app_name"]}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href={{ url_for('home') }}>Home</a>
+            </li>
+            <!-- GENERAL DROPDOWN-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                General
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Account Info</a></li>
+                <li><a class="dropdown-item" href={{ url_for('albums') }}>Show Albums</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Other Item</a></li>
+              </ul>
+            </li>
+            <!-- ALBUM 1 DROPDOWN -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ux_g["album1_name"]}} Album
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href={{ url_for('images')+'?'+insert_album_id(ux_g["album1_id"]) }}>Goto Full Album</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?noimages=true&'+insert_album_id(ux_g["album1_id"]) }}>Goto Full Album w/o Images</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?start=0&stepsize=10&pages=1&'+insert_album_id(ux_g["album1_id"]) }}>Goto First Page of Images</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href={{ url_for('pick')+'?albumidx=1' }}>Upload Image</a></li>
+                <li><a class="dropdown-item" href="#">Search by Filename</a></li>
+              </ul>
+            </li>
+            <!-- ALBUM 2 DROPDOWN -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ux_g["album2_name"]}} Album
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href={{ url_for('images')+'?'+insert_album_id(ux_g["album2_id"]) }}>Goto Full Album</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?noimages=true&'+insert_album_id(ux_g["album2_id"]) }}>Goto Full Album w/o Images</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?start=0&stepsize=10&pages=1&'+insert_album_id(ux_g["album2_id"]) }}>Goto First Page of Images</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href={{ url_for('pick')+'?albumidx=2' }}>Upload Image</a></li>
+                <li><a class="dropdown-item" href="#">Search by Filename</a></li>
+              </ul>
+            </li>
+            <!-- ALBUM 3 DROPDOWN -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ux_g["album3_name"]}} Album
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href={{ url_for('images')+'?'+insert_album_id(ux_g["album3_id"]) }}>Goto Full Album</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?noimages=true&'+insert_album_id(ux_g["album3_id"]) }}>Goto Full Album w/o Images</a></li>
+                <li><a class="dropdown-item" href={{ url_for('images')+'?start=0&stepsize=10&pages=1&'+insert_album_id(ux_g["album3_id"]) }}>Goto First Page of Images</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href={{ url_for('pick')+'?albumidx=3' }}>Upload Image</a></li>
+                <li><a class="dropdown-item" href={{ url_for('download') }}>Download Image</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Search by Filename</a></li>
+              </ul>
+            </li>
+            <!-- USER DROPDOWN -->
+            <li class="nav-item dropdown d-flex">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ux_g["userid"]}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href={{ url_for('logout') }}>Logout</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">About</a></li>
+              </ul>
+            </li>            
+          </ul>
+          <!-- <a class="nav-link disabled d-flex">{{ userid }}</a> -->
+        </div>
+      </div>
+    </nav>
+
+    <div id="content">
+      <div class="container-fluid pt-5 mt-3">
+      {% block content %}
+      {% endblock %}
+      </div>
+    </div>
+
+    <div id="footer">
+      {% block footer %}
+
+      {% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

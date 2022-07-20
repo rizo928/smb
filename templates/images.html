@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    Total number of images found: {{len}}
+</div>
+
+{%for i in range(0, len)%}
+    <a href={{ url_for('image') }}?image_id={{ images[i]['ImageKey'] }}><img src={{ images[i]['ThumbnailUrl'] }}></a>
+{%endfor%}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+{% for msg in status_msg %}
+<div class="row">{{msg}}</div>
+{% endfor %}
+{% endblock %}

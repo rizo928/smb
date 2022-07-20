@@ -1,0 +1,8 @@
+pyuwsgi
+flask
+flask-session
+rauth
+requests
+httplib2
+configparser
+httpagentparser

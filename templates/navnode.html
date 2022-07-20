@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    Current Node: {{current_node}}
+</div>
+<div class="row">
+Total Nodes : {{total_nodes}}
+</div>
+<ol>
+    {%for i in range(0, len)%}
+        {%if album_ids[i] == '' %}
+            <li><a href={{ url_for('select') }}?nodeid={{node_ids[i]}}>{{node_names[i]}}</a></li>
+        {% else %}
+            <li><a href={{ url_for('album') }}?nodeid={{album_ids[i]}}>{{node_names[i]}}</a></li>
+        {% endif %}
+    {%endfor%}
+</ol>
+{% endblock %}

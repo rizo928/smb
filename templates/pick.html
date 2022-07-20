@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div class="row">
+    <p class="text-primary">Select a photo to upload to {{album_name}} w/ID {{album_id}}</p>
+</div>
+<form action={{ url_for('upload')+'?album_id='+album_id }} method="POST" enctype="multipart/form-data">
+    <input id="file" name="images" multiple="" type="file" accept="image/*" />
+    <br>
+    <br>
+    <input type="submit" />
+</form>
+{% endblock %}

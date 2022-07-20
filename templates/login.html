@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+   You need to sign in to use this site...
+</div>
+<form action="/login" method="POST">
+   <div class="row mb-2">
+      <label for="getName" class="col-sm-1 col-form-label">Email</label>
+      <div class="col-sm-5">
+         <input id="getName" class="form-control" type="email" placeholder="foo@foo.com" name="userid">
+      </div>
+   </div>
+   <div class="row mb-2">
+      <label for="getPwd" class="col-sm-1 col-form-label">Password</label>
+      <div class="col-sm-5">
+         <input id="getPwd" class="form-control" type="password" placeholder="password" autocomplete="off"  name="pswd">
+      </div>
+   </div>
+   <div class="row mb-2">
+      <div class="col-sm-2 offset-sm-1">
+         <button type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+   </div>
+</form>
+{% endblock %}

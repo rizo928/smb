@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<script>
+    if (navigator.clipboard) {
+        console.log('Clipboard API available');
+    }
+
+    function myFunction(theText) {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard
+        // .writeText(copyText.value)
+        .writeText(theText)
+        .then(() => {
+            alert("successfully copied");
+        })
+        .catch(() => {
+            alert("something went wrong");
+         });
+        }
+</script>
+<div>
+    <br>
+    <ul>
+
+        <h3>Tech Album</h3>
+        <li>
+            <input type="text" value="searchstr" id="findTechImageId" style="width:auto">
+            {% macro insert_search_tech_buttion(baseUrl="") -%}
+            <button onclick="to_tech_search('{{ baseUrl }}')">Find Image</button>
+            {%- endmacro %}
+            {{ insert_search_tech_buttion(url_for('findimage')+'?album_id=Hm2ZP2') }}
+        </li>
+    </ul>
+</div>
+{% endblock %}

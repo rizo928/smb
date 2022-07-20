@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Display Image Sizes</h1>
+<h2>Available sizes...</h2>
+{%if image_size_details['ImageSizeThumb'] != None %}
+    <img src={{ image_size_details['ImageSizeThumb']['Url'] }}></a>
+{% else %}
+-- No Thumbnail Image --<br><br>
+{% endif %}
+<br>
+<br>
+{%if image_info['FileName'] != None %}
+Image Key: {{image_info['ImageKey']}}<br>
+File Name: {{image_info['FileName']}}<br>
+Size     : {{image_info['ArchivedSize']}}<br>
+Hash     : {{image_info['ArchivedMD5']}}
+{% else %}
+-- No Image Info --<br><br>
+{% endif %}
+<br>
+<style>
+    table {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: 0px;
+        margin-right: 200px;
+    }
+</style>
+<div class="table-responsive"> 
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Size</th>
+                <th>Url</th>
+                <th>Width</th>        
+                <th>Height</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for size in image_size_details['UsableSizes'] %}
+            <tr>
+                <td>{{ insert_to_clipboard_button(image_size_details[size]['Url'], 'Clip URL') }}</td>
+                <td>{{size}}</td>
+                <td>{{image_size_details[size]['Url']}}</td>
+                <td>{{image_size_details[size]['Width']}}</td>        
+                <td>{{image_size_details[size]['Height']}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
