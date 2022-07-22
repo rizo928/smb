@@ -35,7 +35,7 @@
   </head>
   <body>
     {% macro insert_to_clipboard_button(txt="", dsp="button") -%}
-      <button type="button" class="btn btn-primary" onclick="to_clipboard('{{ txt }}')">{{ dsp }}</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" onclick="this.innerHTML = 'Copied'; to_clipboard('{{ txt }}')">{{ dsp }}</button>
     {%- endmacro %}
 
     {% macro insert_album_id(id="") -%}

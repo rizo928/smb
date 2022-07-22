@@ -131,7 +131,7 @@ class SmugMug(object):
                     method, url, params, headers, files, data, header_auth)
                 if ('Code' in response and response['Code'] in [200, 201]) or ("stat" in response and response["stat"] in ["ok"]):
                     return response
-            except (requests.ConnectionError, requests.HTTPError, requests.URLRequired, requests.TooManyRedirects, requests.RequestException, httplib2.IncompleteRead) as e:
+            except (requests.ConnectionError, requests.HTTPError, requests.URLRequired, requests.TooManyRedirects, requests.RequestException) as e:
                 if self.verbose == True:
                     print(sys.exc_info()[0])
             if self.verbose == True:

@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Display Image Sizes</h1>
-<h2>Available sizes...</h2>
+<h1>Image Detail</h1>
 {%if image_size_details['ImageSizeThumb'] != None %}
     <img src={{ image_size_details['ImageSizeThumb']['Url'] }}></a>
 {% else %}
@@ -32,7 +31,6 @@ Hash     : {{image_info['ArchivedMD5']}}
             <tr>
                 <th>Action</th>
                 <th>Size</th>
-                <th>Url</th>
                 <th>Width</th>        
                 <th>Height</th>
             </tr>
@@ -40,9 +38,8 @@ Hash     : {{image_info['ArchivedMD5']}}
         <tbody>
             {% for size in image_size_details['UsableSizes'] %}
             <tr>
-                <td>{{ insert_to_clipboard_button(image_size_details[size]['Url'], 'Clip URL') }}</td>
+                <td>{{ insert_to_clipboard_button(image_size_details[size]['Url'], ' Clip ') }}</td>
                 <td>{{size}}</td>
-                <td>{{image_size_details[size]['Url']}}</td>
                 <td>{{image_size_details[size]['Width']}}</td>        
                 <td>{{image_size_details[size]['Height']}}</td>
             </tr>

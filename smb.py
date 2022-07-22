@@ -182,6 +182,7 @@ def logout():
 @app.route("/")
 def home():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
     return render_template('home.html', ux_g=ux_g)
 
@@ -189,6 +190,7 @@ def home():
 @app.route("/albums")
 def albums():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     albums = sm.get_albums()
@@ -199,6 +201,7 @@ def albums():
 @app.route("/images")
 def images():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     skip_images = request.args.get('noimages')
@@ -239,6 +242,7 @@ def images():
 @app.route("/findimage")
 def findimage():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     album_id = request.args.get('album_id')
@@ -286,6 +290,7 @@ def image():
     """ Get a specific image specified by image_id parameter """
 
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     image_id = request.args.get('image_id')
@@ -316,6 +321,7 @@ def image():
 @app.route("/pick")
 def pick():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
     aidx = request.args.get('albumidx')
     if aidx == None:
@@ -333,6 +339,7 @@ def pick():
 @app.route("/upload", methods=["POST"])
 def upload():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     album_id = request.args.get('album_id')
@@ -388,6 +395,7 @@ def upload():
 @app.route("/download")
 def download():
     if not session.get("userid"):
+        ux_g["userid"] = "Anonymous"
         return redirect("/login")
 
     image_info = {"ImageKey": "nQtF532",
