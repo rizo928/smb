@@ -10,6 +10,7 @@ RUN mkdir /app/templates; \
 COPY ./* /app
 COPY ./static/* /app/static
 COPY ./templates/* /app/templates
+COPY ./rauth /app/rauth
 
 EXPOSE 5000/tcp
 

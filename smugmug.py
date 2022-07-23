@@ -12,6 +12,10 @@ Copywrite (C) 2022 Bitrox.io
 """
 
 from rauth.service import OAuth1Service
+# This is modified version of rauth fixed to run w/Python 3.x
+# Fix to rauth/session.py line 229
+# https://github.com/litl/rauth has pull requests on this
+# but they're ignored, so forced to pull it here as local.
 import requests
 import httplib2
 import hashlib
