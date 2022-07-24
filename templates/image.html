@@ -38,10 +38,17 @@ Hash     : {{image_info['ArchivedMD5']}}
         <tbody>
             {% for size in image_size_details['UsableSizes'] %}
             <tr>
-                <td>{{ insert_to_clipboard_button(image_size_details[size]['Url'], ' Clip ') }}</td>
-                <td>{{size}}</td>
-                <td>{{image_size_details[size]['Width']}}</td>        
-                <td>{{image_size_details[size]['Height']}}</td>
+                <!--
+                    Smugmug does not consistently honor ImageSizeOriginal URLs
+                    so do not include as embed option.
+                    (found this out the hard way after embedding in hundreds of posts)
+                -->
+                {%if size != 'ImageSizeOriginal' %}
+                    <td>{{ insert_to_clipboard_button(image_size_details[size]['Url'], ' Clip ') }}</td>
+                    <td>{{size}}</td>
+                    <td>{{image_size_details[size]['Width']}}</td>        
+                    <td>{{image_size_details[size]['Height']}}</td>
+                {% endif %}
             </tr>
             {%endfor%}
         </tbody>
