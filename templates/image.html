@@ -36,7 +36,7 @@ Hash     : {{image_info['ArchivedMD5']}}
             </tr>
         </thead>
         <tbody>
-            {% for size in image_size_details['UsableSizes'] %}
+            {% for size in image_sizes %}
             <tr>
                 <!--
                     Smugmug does not consistently honor ImageSizeOriginal URLs

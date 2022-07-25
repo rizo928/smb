@@ -123,7 +123,8 @@ class dict2obj:
     def __init__(self, dict1):
         self.__dict__.update(dict1)
 
-
+# This isn't really used, but it's hear in case one would like to operate
+# differently depending on whether or not we're dealing with iOS device
 def is_ios():
     uap = httpagentparser.detect(request.user_agent.string)
     # print('User agent detect: ', uap, file=sys.stderr)
@@ -234,7 +235,7 @@ def images():
     # sorted_images = sorted(images, key=lambda d: d['FileName'], reverse=False)
 
     if skip_images != None:  # parameter vs. header check
-        return render_template('images-ios.html', len=len(images), images=images, ux_g=ux_g)
+        return render_template('images-list.html', len=len(images), images=images, ux_g=ux_g)
     else:
         return render_template('images.html', len=len(images), images=images, ux_g=ux_g)
 
@@ -301,18 +302,23 @@ def image():
 
     image_core_info = sm.get_image_core_info(image_id)
     image_size_details = sm.get_image_size_details(image_id)
+    image_sizes = list(reversed(image_size_details['UsableSizes']))
+        # We want the bigger sizes first in the list to avoid unnecessary scrolling
+        # since modern blogs tend to use bigger image sizes
+    print('Image size key array: ', image_sizes, file=sys.stderr)
     if image_core_info != None:
         image_info = {}
         image_info['ImageKey'] = image_core_info['ImageKey']
         image_info['FileName'] = image_core_info['FileName']
         image_info['ArchivedSize'] = image_core_info['ArchivedSize']
         image_info['ArchivedMD5'] = image_core_info['ArchivedMD5']
+
         if 'OriginalSize' in image_core_info:
             image_info['OriginalSize'] = image_core_info['OriginalSize']
         else:
             image_info['OriginalSize'] = 0
 
-        return render_template('image.html', image_size_details=image_size_details, image_info=image_info, ux_g=ux_g)
+        return render_template('image.html', image_sizes=image_sizes, image_size_details=image_size_details, image_info=image_info, ux_g=ux_g)
     else:
         print('Unsuccessful attempt to retrieve image core info', file=sys.stderr)
         return status_msg("Unsuccessful attempt to retrieve image core info")
@@ -333,7 +339,7 @@ def pick():
     ai_key = 'album'+str(aidx)+'_id'
     print('Ask user to take/pick an image to upload for ',
           an_key+':'+ai_key, file=sys.stderr)
-    return render_template('pick.html', ux_g=ux_g, album_name=ux_g[an_key], album_id=ux_g[ai_key])
+    return render_template('pick.html', ux_g=ux_g, album_name=ux_g[an_key], album_id=ux_g[ai_key]) # pick
 
 
 @app.route("/upload", methods=["POST"])
@@ -372,24 +378,7 @@ def upload():
         smg.append(file_name +
                    " upload status: " + upload_response["stat"])
 
-# Upload json response
-# {
-#   "Asset":{
-#       "AssetComponentUri":"/api/v2/library/asset/nqtF7w2/component/i/n1808w2",
-#   "AssetUri":"/api/v2/library/asset/nq328w2"
-#   },
-#   {
-#   "Image":{
-#       "AlbumImageUri":"/api/v2/album/2cwFNh/image/nqZbBw4-0",
-#       "ImageUri":"/api/v2/image/nQtSB32-0",
-#       "StatusImageReplaceUri":"",
-#       "URL":"https://my.customdomain.io/Blogs/TestBlog/n-456bmF/i-n323w2"
-#   },
-#   "method":"smugmug.images.upload",
-#   "stat":"ok"
-# }
-
-    return status_msg(smg)
+    return status_msg(smg) # upload
 
 
 @app.route("/download")
@@ -403,7 +392,7 @@ def download():
     image_path = "downloaded.jpg"
     print('Downloading image...', file=sys.stderr)
     response = sm.download_image(image_info, image_path, retries=2)
-    return status_msg('Downloaded image from Test Blog')
+    return status_msg('Downloaded image from Test Blog') # download
 
 
 if __name__ == "__main__":

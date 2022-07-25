@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    Total number of images found: {{len}}
+</div>
+<!--
+images.append({"ImageKey": image_key, "Uri": image["Uri"], "FileName": image["FileName"],
+"ArchivedMD5": image["ArchivedMD5"], "ThumbnailUrl": image['ThumbnailUrl'], "OriginalSize": (image["OriginalSize"] if "OriginalSize" in image else None)})
+-->
+<img src={{ images[0]['ThumbnailUrl'] }} class = "Image">
+<br>
+<div class="table-responsive"> 
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>File Name</th>
+                <th>Web Uri</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in range(0, len):%}
+                <!-- % bTxt = images[i]['WebUri'] % -->
+                <tr>
+                {%if images[i]['FileName'] == '' %}
+                    <td>Missing FileName {{i}}</td>
+                {% else %}
+                    <td>{{ insert_to_clipboard_button(images[i]['WebUri'],'Clip Uri') }}</td>
+                    <td>{{images[i]['FileName']}}</td>
+                    <td><a href={{ url_for('image') }}?image_id={{ images[i]['ImageKey'] }}>{{ images[i]['WebUri'] }}</a></td>
+                {% endif %}
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
