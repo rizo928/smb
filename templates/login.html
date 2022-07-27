@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="row">
-   You need to sign in to use this site...
-</div>
+<p>You need to sign in to use this site...
+   
+</p>
 <form action="/login" method="POST">
    <div class="row mb-2">
-      <label for="getName" class="col-sm-1 col-form-label">Email</label>
+      <label for="getName" class="col-sm-1 col-form-label">Login ID</label>
       <div class="col-sm-5">
-         <input id="getName" class="form-control" type="email" placeholder="foo@foo.com" name="userid">
+         <input id="getName" class="form-control" type="text" maxlength="20" size="20" placeholder="myLoginID" name="userid" required>
       </div>
    </div>
    <div class="row mb-2">
       <label for="getPwd" class="col-sm-1 col-form-label">Password</label>
       <div class="col-sm-5">
-         <input id="getPwd" class="form-control" type="password" placeholder="password" autocomplete="off"  name="pswd">
+         <input id="getPwd" class="form-control" type="password" maxlength="30" size="30" placeholder="password" autocomplete="off"  name="pswd" required>
       </div>
    </div>
    <div class="row mb-2">

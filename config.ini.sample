@@ -4,7 +4,7 @@
 # This should be some long random set of chars similar to the below
 # Don't use the default shown, at least change a few chars here and there
 # or better yet replace the whole string with something random you generate
-session_key = 4p7g3bn8csbv8BxNVpSqfBSRnnB7f6TfSMM4nPmz7mt3KCKK6hh3kc7SW8pFqpqsH
+session_key = 4p7g3bn8csbv8BxblahblahblahfBSRnnB7f6TfSMM4nPmz7mt3KCKK6hh3kc7SW8pFqpqsH
 
 # This is your user id and password to loin
 # SMB only supports a single login at this time
